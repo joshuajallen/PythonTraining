@@ -1,0 +1,195 @@
+/* latin-ext */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans Regular'), local('OpenSans-Regular'), url(../font/OpenSansLatin-Regular-Ext.woff2) format('woff2');
+}
+
+/* latin */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans Regular'), local('OpenSans-Regular'), url(../font/OpenSansLatin-Regular.woff2) format('woff2');
+}
+
+html, body, h1, h2, h4, th, td, label, table, .tooltip {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+}
+
+h3 {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  margin-top: 0;
+}
+
+.webix_tree_folder, .webix_tree_folder_open {
+  color: #FFE081;
+}
+
+.webix_tree_file {
+  color: lightsteelblue;
+}
+
+.skin-blue .irs-bar {
+  background: #ddd;
+  border-top: #ccc;
+  border-bottom: #ccc;
+}
+
+.skin-blue .irs-bar-edge {
+  background: #ccc;
+  border: #ccc;
+}
+
+/* logo */
+.skin-blue .main-header .logo {
+  background-color: white;
+  color: #555;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+}
+
+/* logo when hovered */
+.skin-blue .main-header .logo:hover {
+  background-color: #ddd;
+}
+
+/* navbar (rest of the header) */
+.skin-blue .main-header .navbar {
+  background-color: white;
+}
+
+/* main sidebar */
+.skin-blue .main-sidebar {
+  background-color: white;
+  color: black;
+}
+
+/* active selected tab in the sidebarmenu */
+.skin-blue .main-sidebar .sidebar .sidebar-menu .active a{
+  background-color: white;
+}
+
+/* other links in the sidebarmenu */
+.skin-blue .main-sidebar .sidebar .sidebar-menu a{
+  background-color: white;
+  color: #555;
+}
+
+/* other links in the sidebarmenu when hovered */
+.skin-blue .main-sidebar .sidebar .sidebar-menu a:hover{
+  background-color: #ddd;
+}
+
+/* toggle button */
+.skin-blue .main-header .navbar .sidebar-toggle {
+  background-color: white;
+  color: #555;
+}
+
+/* toggle button when hovered  */
+.skin-blue .main-header .navbar .sidebar-toggle:hover{
+  background-color: #ddd;
+  color: #555;
+}
+
+/* Sidebar text */
+.skin-blue .sidebar a {
+  color: #555;
+}
+
+/* Input labels */
+.skin-blue section.sidebar .shiny-input-container {
+  color: #555;
+}
+
+/* active selected tab in the li */
+.skin-blue .sidebar-menu > li > .treeview-menu {
+    background: white;
+}
+
+/* Content */
+.skin-blue .content-wrapper{
+    background-color: #fff;
+}
+
+.skin-blue .wrapper{
+    background-color: #fff;
+}
+
+/* Fix white hover issue for newer packages */
+.skin-blue .sidebar-menu .treeview-menu>li.active>a, .skin-blue .sidebar-menu .treeview-menu>li>a:hover {
+    color: black;
+}
+
+/* More visible selected button for portfolios */
+button.btn.checkbtn.btn-default.active {
+  font-weight: bold;
+}
+
+/* More visible selected button for portfolios */
+button.btn.radiobtn.btn-default.active {
+  font-weight: bold;
+}
+
+
+/* DC.JS */
+
+
+.dc-chart g.row text {
+    fill: black;
+}
+
+
+.dc-chart .pie-slice {
+    fill: black;
+}
+
+
+
+.text-muted {
+
+    color: #dddddd;
+
+}
+
+
+/* Remove annoying border when dropdown has been used. */
+.is-focused:not(.is-open)>.Select-control{
+	border:none;
+	box-shadow: none;
+}
+
+/* Date Range colours */
+/* Calendar date start and end */
+.CalendarDay__selected, .CalendarDay__selected:active, .CalendarDay__selected:hover {
+  background: goldenrod;
+  border: 1px double goldenrod;
+  color: #fff;
+}
+
+/* Calendar in between start and end date */
+.CalendarDay__selected_span {
+    background: gold;
+    border: 1px double gold;
+    color: #fff;
+}
+
+.CalendarDay__selected_span:active, .CalendarDay__selected_span:hover {
+    background: goldenrod;
+    border: 1px double goldenrod;
+    color: #fff;
+}
+
+/* Graph styling */
+#graph-container {
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 1200px;
+    padding-right: 10px;
+    padding-left: 10px;
+    margin-top: 32px;
+}
