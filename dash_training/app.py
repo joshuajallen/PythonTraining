@@ -20,13 +20,15 @@ fig = px.line(data,
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__,
-                #external_stylesheets=[dbc.themes.SUPERHERO],
+                external_stylesheets=[dbc.themes.LUMEN],
                 suppress_callback_exceptions=True,
                 assets_folder='N:\\Offdata\\RM\\_People\\JA\\Python\\dash_intro\\assets')
 
 app.title = "Asset price dashboard"
 
 port = 5000  # or simply open on the default `8050` port
+
+
 def open_browser():
     webbrowser.open_new("http://localhost:{}".format(port))
 
@@ -40,7 +42,7 @@ content_one_one = html.Div([
         clearable=False,
         value=data.columns[1]
     )
-], style={"width": 400})
+], style={"width": 250, 'height': 150, 'display': 'inline-block'})
 
 content_one_two = html.Div([
     dbc.Label("Select date range:", size="md"),
@@ -60,7 +62,7 @@ content_one_two = html.Div([
         #        'margin': '10px'
         #        }
     )
-], style={"width": 400})
+], style={"width": 350, 'height': 150, 'display': 'inline-block'})
 
 chart_page_one = html.Div(
     children=[
@@ -75,12 +77,12 @@ chart_page_one = html.Div(
                 ),
             ), style={'width': '90%',
                       'margin': '20px'
-                      },
-            width="50%"),
+                      }
+        ),
         html.Hr()
-    ]
+    ],
+    style={"width": 800, 'height': 400}
 )
-
 
 # app.layout = html.P("Hello world")  # p is a paragraph
 # define layout using html div
@@ -90,26 +92,26 @@ app.layout = dbc.Container(
     children=[
         html.Div([
             dcc.Location(id='url', refresh=False),
-            html.Link(
-                type="test/css",
-                rel='stylesheet',
-                href='assests/jquery.dataTables.min.css'
-            ),
-            html.Link(
-                type="test/css",
-                rel='stylesheet',
-                href='assests/dc.css'
-            ),
-            html.Link(
-                type="test/css",
-                rel='stylesheet',
-                href='assests/webix_modified.css'
-            ),
-            html.Link(
-                type="test/css",
-                rel='stylesheet',
-                href='assests/style.css'
-            ),
+            # html.Link(
+            #     type="test/css",
+            #     rel='stylesheet',
+            #     href='N:\\Offdata\\RM\\_People\\JA\\Python\\dash_intro\\assets\\jquery.dataTables.min.css'
+            # ),
+            # html.Link(
+            #     type="test/css",
+            #     rel='stylesheet',
+            #     href='N:\\Offdata\\RM\\_People\\JA\\Python\\dash_intro\\assets\\dc.css'
+            # ),
+            # html.Link(
+            #     type="test/css",
+            #     rel='stylesheet',
+            #     href='N:\\Offdata\\RM\\_People\\JA\\Python\\dash_intro\\assets\\webix_modified.css'
+            # ),
+            # html.Link(
+            #     type="test/css",
+            #     rel='stylesheet',
+            #     href='N:\\Offdata\\RM\\_People\\JA\\Python\\dash_intro\\assets\\custom.css'
+            # ),
         ]),
         html.Div(id='page-content'),
         html.Div(
@@ -135,133 +137,130 @@ app.layout = dbc.Container(
             ]
         ),
         dbc.Row(
-            [
-                dbc.Col(content_one_one),
-                html.Br(),
-                dbc.Col(content_one_two)
-            ], style={"padding": "20px 0px"}),
+            [dbc.Col(content_one_one,
+                     style={'display': 'inline-block', 'margin': '5px', 'width': '200px'}),
+             dbc.Col(content_one_two,
+                     style={'display': 'inline-block', 'margin': '5px', 'width': '200px'})
+             ]),
+        html.Hr(),
         dbc.Row(
             [
-                dbc.Col(chart_page_one),
-                dbc.Col(
-                    [
-                        dbc.Row(),
-                        dbc.Row()
-                    ]),
+                dbc.Col(chart_page_one, style={"width": "100%"}),
+                dbc.Col(style={"width": "100%"})
             ]
-        ),
+        )
     ]
 )
-                # html.Div([
-                #     html.Col(
-                #         [
-                #             dbc.Label("Select metal", size="md"),
-                #             dcc.Dropdown(
-                #                 id="metal-filter",
-                #                 className="dropdown",
-                #                 options=[{"label": metal, "value": metal} for metal in data.columns[1:]],
-                #                 clearable=False,
-                #                 value=data.columns[1],
-                #                 style={'width': '50%',
-                #                        'height': '30px',
-                #                        'lineHeight': '30px',
-                #                        'borderWidth': '1px',
-                #                        'borderStyle': 'solid',
-                #                        'borderRadius': '5px',
-                #                        'textAlign': 'center',
-                #                        'margin': '10px'
-                #                        }
-                #             ),
-                #         ]),
-                #
-                #     html.Col(
-                #         [
-                #             dbc.Label("Date Range", size="md"),
-                #             dcc.DatePickerRange(
-                #                 id="date_range",
-                #                 min_date_allowed=data.DateTime.min().date(),
-                #                 max_date_allowed=data.DateTime.max().date(),
-                #                 start_date=data.DateTime.min().date(),
-                #                 end_date=data.DateTime.max().date(),
-                #                 style={'width': '50%',
-                #                        'height': '30px',
-                #                        'lineHeight': '30px',
-                #                        'borderWidth': '1px',
-                #                        'borderStyle': 'solid',
-                #                        'borderRadius': '5px',
-                #                        'textAlign': 'center',
-                #                        'margin': '10px'
-                #                        }
-                #             )
-                #         ]),
-                # ]),
-
-                # html.Div(
-                #     id="menu-area",
-                #     children=[
-                #         html.Br(),
-                #         dbc.Row(children=[
-                #             dbc.Col(html.Div(
-                #                 children=[
-                #                 dbc.Label("Select metal", size="md"),
-                #                 dcc.Dropdown(
-                #                     id="metal-filter",
-                #                     className="dropdown",
-                #                     options=[{"label": metal, "value": metal} for metal in data.columns[1:]],
-                #                     clearable=False,
-                #                     value=data.columns[1]
-                #                     # style={'width': '50%',
-                #                     #        'height': '30px',
-                #                     #        'lineHeight': '30px',
-                #                     #        'borderWidth': '1px',
-                #                     #        'borderStyle': 'solid',
-                #                     #        'borderRadius': '5px',
-                #                     #        'textAlign': 'center',
-                #                     #        'margin': '10px'
-                #                     #        }
-                #                 )]
-                #             ), width=2),
-                #             dbc.Col(html.Div(children=[
-                #                 dbc.Label("Date Range", size="md"),
-                #                 dcc.DatePickerRange(
-                #                     id="date_range",
-                #                     min_date_allowed=data.DateTime.min().date(),
-                #                     max_date_allowed=data.DateTime.max().date(),
-                #                     start_date=data.DateTime.min().date(),
-                #                     end_date=data.DateTime.max().date()
-                #                 )
-                #
-                #             ]
-                #             ), width=2),
-                #             dbc.Col(html.Div(), width=3),
-                #         ]
-                #
-                #         )
-                #     ]
-                # ),
-                # html.Div(
-                #     children=[
-                #         html.Br(),
-                #         dbc.Row(
-                #             dbc.Col(
-                #                 html.Div(
-                #                     id="graph-container",
-                #                     children=dcc.Graph(
-                #                         id="price-chart",
-                #                         figure=fig,
-                #                         config={"displayModeBar": False}
-                #                     ),
-                #                 ), style={'width': '50%',
-                #                           'margin': '20px'
-                #                           },
-                #                 width="50%")
-                #         ),
-                #         html.Hr()
-                #     ]
-                #
-                # )
 
 
+# html.Div([
+#     html.Col(
+#         [
+#             dbc.Label("Select metal", size="md"),
+#             dcc.Dropdown(
+#                 id="metal-filter",
+#                 className="dropdown",
+#                 options=[{"label": metal, "value": metal} for metal in data.columns[1:]],
+#                 clearable=False,
+#                 value=data.columns[1],
+#                 style={'width': '50%',
+#                        'height': '30px',
+#                        'lineHeight': '30px',
+#                        'borderWidth': '1px',
+#                        'borderStyle': 'solid',
+#                        'borderRadius': '5px',
+#                        'textAlign': 'center',
+#                        'margin': '10px'
+#                        }
+#             ),
+#         ]),
+#
+#     html.Col(
+#         [
+#             dbc.Label("Date Range", size="md"),
+#             dcc.DatePickerRange(
+#                 id="date_range",
+#                 min_date_allowed=data.DateTime.min().date(),
+#                 max_date_allowed=data.DateTime.max().date(),
+#                 start_date=data.DateTime.min().date(),
+#                 end_date=data.DateTime.max().date(),
+#                 style={'width': '50%',
+#                        'height': '30px',
+#                        'lineHeight': '30px',
+#                        'borderWidth': '1px',
+#                        'borderStyle': 'solid',
+#                        'borderRadius': '5px',
+#                        'textAlign': 'center',
+#                        'margin': '10px'
+#                        }
+#             )
+#         ]),
+# ]),
+
+# html.Div(
+#     id="menu-area",
+#     children=[
+#         html.Br(),
+#         dbc.Row(children=[
+#             dbc.Col(html.Div(
+#                 children=[
+#                 dbc.Label("Select metal", size="md"),
+#                 dcc.Dropdown(
+#                     id="metal-filter",
+#                     className="dropdown",
+#                     options=[{"label": metal, "value": metal} for metal in data.columns[1:]],
+#                     clearable=False,
+#                     value=data.columns[1]
+#                     # style={'width': '50%',
+#                     #        'height': '30px',
+#                     #        'lineHeight': '30px',
+#                     #        'borderWidth': '1px',
+#                     #        'borderStyle': 'solid',
+#                     #        'borderRadius': '5px',
+#                     #        'textAlign': 'center',
+#                     #        'margin': '10px'
+#                     #        }
+#                 )]
+#             ), width=2),
+#             dbc.Col(html.Div(children=[
+#                 dbc.Label("Date Range", size="md"),
+#                 dcc.DatePickerRange(
+#                     id="date_range",
+#                     min_date_allowed=data.DateTime.min().date(),
+#                     max_date_allowed=data.DateTime.max().date(),
+#                     start_date=data.DateTime.min().date(),
+#                     end_date=data.DateTime.max().date()
+#                 )
+#
+#             ]
+#             ), width=2),
+#             dbc.Col(html.Div(), width=3),
+#         ]
+#
+#         )
+#     ]
+# ),
+# html.Div(
+#     children=[
+#         html.Br(),
+#         dbc.Row(
+#             dbc.Col(
+#                 html.Div(
+#                     id="graph-container",
+#                     children=dcc.Graph(
+#                         id="price-chart",
+#                         figure=fig,
+#                         config={"displayModeBar": False}
+#                     ),
+#                 ), style={'width': '50%',
+#                           'margin': '20px'
+#                           },
+#                 width="50%")
+#         ),
+#         html.Hr()
+#     ]
+#
+# )
 
 
 @app.callback(
@@ -290,13 +289,12 @@ def update_chart(metal, start_date, end_date):
     )
 
     fig.update_layout(
-        template="plotly_dark",
+        template="ggplot2",
         xaxis_title="Date",
         yaxis_title="Price (USD/oz)",
         font=dict(
             family="Verdana, sans-serif",
-            size=18,
-            color="white"
+            size=18
         ),
     )
 
@@ -306,4 +304,3 @@ def update_chart(metal, start_date, end_date):
 if __name__ == '__main__':
     Timer(1, open_browser).start();
     app.run_server(debug=False, port=port)
-
