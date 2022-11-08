@@ -4,18 +4,16 @@ import dash_bootstrap_components as dbc
 import pandas as pd
 import os
 import plotly.express as px
+from layout.global_variables import data
 
-def RM_PATH(subpath):
-    path=os.path.join(os.path.abspath('N:/Offdata/RM/_People/JA/Python/dash_intro'), os.path.abspath(str(subpath)))
-    return path
-
-data = pd.read_csv(RM_PATH("data/precious_metals_prices_2018_2021.csv"))
-data['DateTime'] = pd.to_datetime(data['DateTime'], format="%Y-%m")
 fig = px.line(data,
               x="DateTime",
               y=["Gold"],
               title="Line chart of selected asset prices")
 
+dist = px.scatter_matrix(data,
+                         dimensions=data.columns[1:],
+                         title="Scatter matrix:")
 
 tab_style = {
     "background": "white",
@@ -32,100 +30,118 @@ tab_style = {
 # the style arguments for the sidebar. We use position:fixed and a fixed width
 SIDEBAR_STYLE = {
     #"position": "fixed",
-    "top": 320,
+    "top": 300,
     "left": 0,
-    "bottom": 50,
-    "width": "25rem",
-    "padding": "2rem 1rem",
+    "bottom": 0,
+    "width": "27rem",
+    "height": "100rem",
+    "padding": "1rem 1rem",
     "background-color": "#f8f9fa",
 }
 
 # the styles for the main content position it to the right of the sidebar and
 # add some padding.
 CONTENT_STYLE = {
-    "margin-left": "25rem",
+    "margin-left": "27rem",
     "margin-right": "2rem",
-    "padding": "2rem 1rem",
+    "padding": "1rem 1rem",
 }
-content_one_one = html.Div([
-    dbc.Label("Select metal", size="md"),
-    dcc.Dropdown(
-        id="metal-filter",
-        className="dropdown",
-        options=[{"label": metal, "value": metal} for metal in data.columns[1:]],
-        clearable=False,
-        value=data.columns[1]
-    )
-], style={"width": 250, 'height': 150, 'display': 'inline-block'})
+# content_one_one = html.Div([
+#     dbc.Label("Select metal", size="md"),
+#     dcc.Dropdown(
+#         id="metal-filter",
+#         className="dropdown",
+#         options=[{"label": metal, "value": metal} for metal in data.columns[1:]],
+#         clearable=False,
+#         value=data.columns[1]
+#     )
+# ], style={"width": 250, 'height': 150, 'display': 'inline-block'})
 
-content_one_two = html.Div([
-    dbc.Label("Select date range:", size="md"),
-    dcc.DatePickerRange(
-        id="date_range",
-        min_date_allowed=data.DateTime.min().date(),
-        max_date_allowed=data.DateTime.max().date(),
-        start_date=data.DateTime.min().date(),
-        end_date=data.DateTime.max().date()
-    )
-], style={"width": 400, 'height': 150, 'display': 'inline-block'})
+# content_one_two = html.Div([
+#     dbc.Label("Select date range:", size="md"),
+#     dcc.DatePickerRange(
+#         id="date_range",
+#         min_date_allowed=data.DateTime.min().date(),
+#         max_date_allowed=data.DateTime.max().date(),
+#         start_date=data.DateTime.min().date(),
+#         end_date=data.DateTime.max().date()
+#     )
+# ]), #style={"width": 500, 'height': 200, 'display': 'inline-block'})
 
 chart_page_one = html.Div(
     children=[
         dbc.Col(
-            html.Div(
-                id="graph-container",
-                children=dcc.Graph(
-                    id="price-chart",
-                    figure=fig,
-                    config={"displayModeBar": False}
-                ),
-            ), style={'width': '95%',
-                      'margin': '10px'
-                      }
-        )
-    ],
-    style={"width": 900, 'height': 400}
-)
+            width=8,
+            children=[
+                html.Div(
+                    id="graph-container",
+                    children=dcc.Graph(
+                        id="price-chart",
+                        figure=fig,
+                        config={"displayModeBar": False},
+                        style={'display': 'inline-block'}
+                    ),
+                )
+            ]),
+        dbc.Col(width=8,
+                children=[
+                    html.Div(
+                        id="scatter-container",
+                        children=dcc.Graph(
+                            id="scatter-chart",
+                            figure=dist,
+                            style={'display': 'inline-block'}
+                        ),
+                    )
+                ])
+    ])
 
 sidebar = html.Div(
-    [   html.Br(),
-        html.P(
-        "Please select parameter options below:", className="lead"
-    ),
+    [
+        html.H2("Filters"),
         html.Hr(),
-        dbc.Row(
-            [dbc.Col(content_one_one,
-                     style={'display': 'inline-block', 'margin': '1px', 'width': '200px'}),
-             dbc.Col(content_one_two,
-                     style={'display': 'inline-block', 'margin': '1px', 'width': '200px'}),
-             dbc.Col(style={'display': 'inline-block', 'margin': '1px', 'width': '700px'})
-             ]),
-        html.Hr()
-        # dbc.Nav(
-        #     [
-        #         dbc.NavLink("Home", href="/", active="exact"),
-        #         dbc.NavLink("Page 1", href="/page-1", active="exact"),
-        #         dbc.NavLink("Page 2", href="/page-2", active="exact"),
-        #     ],
-        #     vertical=True,
-        #     pills=True,
-        # ),
+        html.P(
+            "A simple sidebar layout with filters", className="lead"
+        ),
+        dbc.Nav(
+            [
+                dbc.Label("Select metal", size="md"),
+                dcc.Dropdown(
+                    id="metal-filter",
+                    className="dropdown",
+                    options=[{"label": metal, "value": metal} for metal in data.columns[1:]],
+                    clearable=False,
+                    value=data.columns[1]
+                ),
+                html.Br(),
+                dbc.Label("Select date range:", size="md"),
+                dcc.DatePickerRange(
+                    id="date_range",
+                    min_date_allowed=data.DateTime.min().date(),
+                    max_date_allowed=data.DateTime.max().date(),
+                    start_date=data.DateTime.min().date(),
+                    end_date=data.DateTime.max().date()
+                ),
+                html.Br(),
+                dcc.Dropdown(id = 'three')
+
+            ],
+            vertical=True,
+            pills=True,
+        ),
     ],
     style=SIDEBAR_STYLE,
 )
 
 page_one = dbc.Tab(label="Asset prices",
-                   style=tab_style,
+                   className="fas fa-globe",
+                   # style=tab_style,
                    children=[
-                           html.Br(),
-                           dbc.Row([
-                               html.Br(),
-                               dbc.Col([sidebar]),
-                               dbc.Col([
-                                   dbc.Row([
-                                       dbc.Col(chart_page_one, style={'height': '420px'}),
-                                       dbc.Col(style={"width": "100%"})
-                                   ])
-                               ]),
-                           ]),
+                       #html.Br(),
+                       dbc.Row([
+                           dbc.Col([sidebar], style={'display': 'inline-block'}),
+                           dbc.Col([
+                               chart_page_one
+                           ], style={'display': 'inline-block', 'margin-left': '15px', 'margin-top': '7px', 'margin-right': '15px'}),
+                       ])
                    ])
