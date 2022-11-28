@@ -3,6 +3,8 @@ import dash_bootstrap_components as dbc
 from layout.global_variables import data
 import pandas as pd
 
+pd.options.display.float_format = '${:.2f}'.format
+
 df = pd.melt(data, id_vars='DateTime')
 df = df.groupby('variable').agg(
     {
@@ -10,9 +12,10 @@ df = df.groupby('variable').agg(
     }
 )
 df = df.droplevel(0, axis=1).reset_index(level=0)
+df = df.round(2)
 cols = ["min", "max", "median", "skew"]
 
-page_three = dbc.Tab(label='Data Tables',
+page_three = dbc.Tab(label='Data Tables 🌎',
                      className="fas fa-box",
                      children=[
                          html.Div([
@@ -33,7 +36,7 @@ page_three = dbc.Tab(label='Data Tables',
                                      {
                                          'if': {
                                              'filter_query': '{min} < 1000',
-                                             'column_id': 'Humidity'
+                                             'column_id': 'min'
                                          },
                                          'backgroundColor': 'tomato',
                                          'color': 'white'
@@ -51,7 +54,7 @@ page_three = dbc.Tab(label='Data Tables',
                              html.Br(),
                              html.Hr(),
                              dash_table.DataTable(
-                                 df.to_dict('records'),
+                                 df.astype(str).to_dict('records'),
                                  [{"name": i, "id": i} for i in df.columns],
                                  filter_action="native",
                                  sort_action="native",
@@ -84,3 +87,4 @@ page_three = dbc.Tab(label='Data Tables',
                              )
                          ])
                      ])
+
