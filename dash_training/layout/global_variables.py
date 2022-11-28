@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 import colorlover
-from dash import Dash, dash_table, dcc, html
+from dash import html
 
 def RM_PATH(subpath):
     path = os.path.join(os.path.abspath('N:/Offdata/RM/_People/JA/Python/dash_intro'), os.path.abspath(str(subpath)))
@@ -30,7 +30,6 @@ CUSTOM_PAL_LINES = [
     "#A65628",
     "#F781BF"
 ]
-
 
 def discrete_background_color_bins(df, n_bins=7, columns='all'):
     bounds = [i * (1.0 / n_bins) for i in range(n_bins + 1)]
