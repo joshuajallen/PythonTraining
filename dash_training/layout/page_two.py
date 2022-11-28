@@ -21,61 +21,81 @@ tab_style = {
 
 SIDEBAR_STYLE = {
     "position": "fixed",
-    "top": 300,
+    "top": "50px",
     "left": 0,
     "bottom": 0,
-    "width": "27rem",
-    "height": "100rem",
-    "padding": "1rem 1rem",
-    "background-color": "#f8f9fa",
+    "width": "28rem",
+    "padding": "2rem 1rem",
 }
 
-
-sidebar = html.Div(
+sidebar_card = html.Div(
     [
-        html.H2("Filters"),
-        html.Hr(),
-        html.P(
-            "Please select inputs from options belows:", className="lead"
-        ),
-        dbc.Nav(
-            [
-                dcc.Dropdown(
-                    id="metal_one",
-                    className="dropdown",
-                    options=[{"label": metal, "value": metal} for metal in data.columns[1:]],
-                    clearable=False,
-                    value=data.columns[1]
-                ),
-                html.Br(),
-                dcc.Dropdown(
-                    id="metal_two",
-                    className="dropdown",
-                    options=[{"label": metal, "value": metal} for metal in data.columns[1:]],
-                    clearable=False,
-                    value=data.columns[2]
-                ),
-                html.Br(),
-                dcc.Dropdown(id='hold')
-            ],
-            vertical=True,
-            pills=True,
-        ),
-    ],
+        html.Br(),
+        html.Br(),
+        html.Br(),
+        html.Br(),
+        html.Br(),
+        html.Br(),
+        dbc.Card([
+            html.Br(),
+            html.H2("Filters"),
+            html.Hr(),
+            html.P(
+                "A simple sidebar layout with filters", className="lead"
+            ),
+            dbc.FormGroup(
+                [
+                    dcc.Dropdown(
+                        id="metal_one",
+                        className="dropdown",
+                        options=[{"label": metal, "value": metal} for metal in data.columns[1:]],
+                        clearable=False,
+                        value=data.columns[1]
+                    ),
+                    html.Br(),
+                    dcc.Dropdown(
+                        id="metal_two",
+                        className="dropdown",
+                        options=[{"label": metal, "value": metal} for metal in data.columns[1:]],
+                        clearable=False,
+                        value=data.columns[2]
+                    ),
+                    html.Br(),
+                    dcc.Dropdown(id='hold')
+                ])
+        ],
+            body=True
+        )
+    ]
+)
+sidebar = html.Div(
+    sidebar_card,
     style=SIDEBAR_STYLE,
 )
 
-page_two = dbc.Tab(label='Portfolio Properties',
-                   className="fas fa-chart-bar",
+page_two = dbc.Tab(label="Portfolio Properties 📊",
+                   className="fas fa-globe",
                    # style=tab_style,
                    children=[
-                       html.Div(children=[
-                           dbc.Row(
-                               [dbc.Col(sidebar),
-                                dbc.Col(children=[dcc.Graph(id='page_two_scatter', figure=scatter)],
-                                        width=7,
-                                        style={'margin-left': '20px', 'margin-top': '7px', 'margin-right': '15px'})
-                                ])
-                       ]
+                       dbc.Container(
+                           [
+                               html.Div(
+                                   children=[
+                                       dbc.Row(
+                                           [
+                                               dbc.Col(
+                                                   [sidebar],
+                                                   md=3,
+                                               ),
+                                               dbc.Col(children=[dcc.Graph(id='page_two_scatter', figure=scatter)],
+                                                       md=9,
+                                                       ),
+                                           ],
+                                       ),
+                                   ],
+                                   className="m-4",
+                               ),
+                           ],
+                           fluid=True,
                        )
                    ])
