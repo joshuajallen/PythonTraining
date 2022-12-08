@@ -1,3 +1,5 @@
+# shortcuts - https://code.visualstudio.com/shortcuts/keyboard-shortcuts-windows.pdf
+
 # C:\Miniconda3\python.exe - select enviroment 
 
 # settings 
@@ -7,3 +9,8 @@
 # Prerferences: Open Workspace Settings
 # Python: Run File in Termnal 
 # Jupyter: Create Interactive Window 
+
+
+# create new section in file 
+#%% 
+
