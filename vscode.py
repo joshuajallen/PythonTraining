@@ -16,3 +16,7 @@
 
 #install package 
  C:/Users/joshu/AppData/Local/Programs/Python/Python311/python.exe -m pip install -U numpy
+
+#venv 
+conda create --name pycaret python=3.9
+conda activate pycaret
