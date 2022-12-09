@@ -14,3 +14,5 @@
 # create new section in file 
 #%% 
 
+#install package 
+ C:/Users/joshu/AppData/Local/Programs/Python/Python311/python.exe -m pip install -U numpy
