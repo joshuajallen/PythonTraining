@@ -22,3 +22,4 @@ conda config --append channels conda-forge
 conda create --name pycaret python=3.9
 conda activate pycaret
 conda install -c conda-forge <package>
+!pip install -r requirments.txt
